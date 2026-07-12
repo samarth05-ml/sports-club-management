@@ -3,7 +3,7 @@ from .extensions import db,bcrypt,login_manager,migrate
 from .config import Config
 from .auth import auth
 from .models.user import User
-
+from .team import team
 def create_app():
     app=Flask(__name__)
     app.config.from_object(Config)
@@ -24,4 +24,5 @@ def create_app():
         return User.query.get(int(uid))
     
     app.register_blueprint(auth)
+    app.register_blueprint(team)
     return app
