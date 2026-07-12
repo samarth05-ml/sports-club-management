@@ -1,7 +1,7 @@
 from flask_login import UserMixin
 from ..extensions import db
 
-class Team(db,UserMixin):
+class Team(db.Model,UserMixin):
     __tablename__='team'
 
     tid=db.Column(db.Integer,primary_key=True)
