@@ -1,0 +1,11 @@
+<html>
+    <head>
+        <title>View Coaches</title>
+    </head>
+    <body>
+        {% for coach in coaches %}
+    <p>{{ coach.user.username }}</p>
+    <p>{{ coach.team.team_name }}</p>
+{% endfor %}
+    </body>
+</html>

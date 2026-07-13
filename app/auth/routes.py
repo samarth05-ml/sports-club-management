@@ -13,13 +13,13 @@ def registerr():
         password=request.form['password']
         role=request.form['role']
 
-        register(username,email,password,role)
+        return register(username,email,password,role)
   
 
 @auth.route('/login',methods=['GET','POST'])
 def loginr():
     if request.method=='GET':
-        return render_template('login.html')
+        return "should return login.html"
     elif request.method=='POST':
             email = request.form["email"]
             password = request.form["password"]
