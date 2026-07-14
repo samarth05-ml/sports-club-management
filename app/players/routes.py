@@ -18,7 +18,7 @@ def assign_playerr():
     team_id=request.form['team_id']
     jersey_number=request.form['jersey_number']
     position=request.form['position']
-    dob=datetime.strptime(request.form['dob']," %Y-%m-%d").date()
+    dob=datetime.strptime(request.form['dob'],"%Y-%m-%d").date()
     height=request.form['height']
     weight=request.form['weight']
 

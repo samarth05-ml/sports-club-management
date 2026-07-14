@@ -15,6 +15,8 @@ class Coach(db.Model):
                       nullable=False)
     user=db.relationship("User",backref='coach_profile')
     team=db.relationship("Team",backref='coach')
+    trainings=db.relationship("Training",back_populates='coach',cascade='all,delete-orphan')
+
 
     def __repr__(self):
         return f"coach id is:{self.cid} , coach user id:{self.user_id} "
