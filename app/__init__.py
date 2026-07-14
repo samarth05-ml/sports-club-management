@@ -5,6 +5,7 @@ from .auth import auth
 from .models.user import User
 from .team import team
 from .coach import coach
+from .players import player
 def create_app():
     app=Flask(__name__)
     app.config.from_object(Config)
@@ -27,4 +28,5 @@ def create_app():
     app.register_blueprint(auth)
     app.register_blueprint(team)
     app.register_blueprint(coach)
+    app.register_blueprint(player)
     return app

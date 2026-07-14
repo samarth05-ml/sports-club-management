@@ -30,3 +30,38 @@ def certain_player(pid):
         return "Player does not exist"
     
     return check_pid
+
+def update_player(pid, team_id, jersey_number, position, dob, height, weight):
+    player=Player.query.filter_by(pid=pid).first()
+
+    if not player:
+        return "Player does not exist"
+    
+    jersey_check=Player.query.filter_by(team_id=team_id,jersey_number=jersey_number).first()
+
+    if jersey_check and jersey_check.pid!=player.pid:
+        return "Jersey number exists in the team"
+    
+
+    player.team_id = team_id
+    player.jersey_number = jersey_number
+    player.position = position
+    player.dob = dob
+    player.height = height
+    player.weight = weight
+
+    db.session.commit()
+
+    return " Player Update successfully"
+
+
+def delete_player(pid):
+    player_check=Player.query.filter_by(pid=pid).first()
+
+    if not player_check:
+        return "Player Does not Exist"
+    
+    db.session.delete(player_check)
+    db.session.commit()
+
+    return "Player deleted successfully but he's still available as user"

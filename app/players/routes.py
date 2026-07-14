@@ -1,7 +1,7 @@
 from flask import request,render_template
 from flask_login import login_required,current_user
 from . import player
-from .services import assign_player,view_all_players,certain_player
+from .services import assign_player,view_all_players,certain_player,update_player,delete_player
 from datetime import datetime
 
 @player.route('/assign-player',methods=['GET','POST'])
@@ -49,6 +49,46 @@ def ceratin_playerr():
     pid=request.form['pid']
 
     return certain_player(pid)
+
+
+@player.route('/update-player',methods=['GET','POST'])
+@login_required
+def update_playerr():
+    if current_user.role!='admin':
+        return "Only admin can update Details"
+    
+    if request.method=='GET':
+        return "again return to same page"
+    
+    pid = request.form['pid']
+    team_id = request.form['team_id']
+    jersey_number = request.form['jersey_number']
+    position = request.form['position']
+    dob = request.form['dob']
+    height = request.form['height']
+    weight = request.form['weight']
+
+    return update_player(pid=pid,
+        team_id=team_id,
+        jersey_number=jersey_number,
+        position=position,
+        dob=dob,
+        height=height,
+        weight=weight)
+
+
+@player.route('/delete-player',methods=['GET','POST'])
+@login_required
+def delete_playerr():
+    if current_user.role!='admin':
+        return "Only admin can delete player"
+    
+    if request.method=='GET':
+        return 'return same page'
+    
+    pid=request.form['pid']
+
+    return delete_player(pid)
 
 
 

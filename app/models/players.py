@@ -5,6 +5,7 @@ from ..models.teams import Team
 class Player(db.Model):
     __tablename__='player'
 
+    pid = db.Column(db.Integer, primary_key=True)
     uid=db.Column(db.Integer,
                   db.ForeignKey('user.uid'),
                   nullable=False,
@@ -30,5 +31,3 @@ class Player(db.Model):
     def __repr__(self):
         return f" player uid{self.uid} , team id:{self.tid}, jersey number:{self.jersey_number} position:{self.position}, dob{self.dob}, weight{self.weight}, height:{self.height} "
     
-    def get_id(self):
-        return str(self.pid)
