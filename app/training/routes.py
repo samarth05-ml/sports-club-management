@@ -2,7 +2,7 @@ from flask import request,render_template
 from . import training
 from datetime import datetime
 from flask_login import login_required,current_user
-from .services import create_training,view_all_sessions,view_session
+from .services import create_training,view_all_sessions,view_session,view_team_session,update_session,delete_session
 @training.route('/create-training',methods=['GET','POST'])
 @login_required
 def create_trainingr():
@@ -42,10 +42,66 @@ def view_all_sessionsr():
         return render_template('training/view_all.html',view_all=view_all)
     
 
-@training.route('/view-specific',methods=['GET','POST'])
+@training.route('/view-single-session',methods=['GET','POST'])
 @login_required
-def view_specificr():
+def view_single_sessionr():
     if current_user.role not in['coach','player']:
         return "Only coaches and players can view their training sessions"
     team_id = int(request.form['team_id'])
     return view_session(team_id,current_user.tid)
+
+@training.route('/team-training-session',methods=['GET'])
+@login_required
+def view_team_sessionr():
+    if current_user.role not in['coach','player']:
+        return "Only coaches and player can view all of their training session"
+    team_id=current_user.tid
+
+    return view_team_session(team_id)
+
+@training.route('/update-session',methods=['GET','POST'])
+@login_required
+def update_sessionr():
+    if current_user.role!='coach':
+        return " Only admin and coach can update session info "
+    
+    if request.method=='GET':
+        return " return to same page "
+    training_id=request.form['training_id']
+    team_id=current_user.team.tid
+    cid=current_user.coach.cid
+    title=request.form['title']
+    description=request.form['description']
+    date=datetime.strptime(request.form['date'],"%Y-%m-%d").date()
+    start_time = datetime.strptime(request.form["start_time"],"%H:%M").time()
+    end_time = datetime.strptime(request.form["end_time"],"%H:%M").time()
+    location=request.form['location']
+
+    return update_session(requested_training_id=training_id,
+    team_id=team_id,
+    cid=cid,
+    title=title,
+    description=description,
+    date=date,
+    start_time=start_time,
+    end_time=end_time,
+    location=location)
+
+@training.route('/delete-training-session',methods=['GET','POST'])
+@login_required
+def delete_sessionr():
+    if current_user.role not in ['admin','coach']:
+        return "Only admin or coach can delete the session"
+    if request.method=='GET':
+        return "invaid request method user has to enter"
+    
+    role=current_user.role
+    team_id=current_user.tid
+    
+    training_session_id=request.form['training_id']
+
+    return delete_session(requested_training_id=training_session_id,role=role,team_id=team_id)
+
+
+    
+    
