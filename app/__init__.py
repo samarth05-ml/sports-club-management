@@ -8,6 +8,8 @@ from .coach import coach
 from .players import player
 from .training import training
 from .match import match
+from .core import core
+
 def create_app():
     app=Flask(__name__)
     app.config.from_object(Config)
@@ -33,4 +35,5 @@ def create_app():
     app.register_blueprint(player)
     app.register_blueprint(training)
     app.register_blueprint(match)
+    app.register_blueprint(core)
     return app

@@ -12,5 +12,5 @@ class User(db.Model,UserMixin):
     def __repr__(self):
         return f"User with id {self.uid} name:{self.username} and role:{self.role}"
     
-    def get_uid(self):
+    def get_id(self):
         return str(self.uid)

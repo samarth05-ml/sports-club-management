@@ -1,0 +1,14 @@
+<html>
+    <head>
+        <title>Register</title>
+    </head>
+    <body>
+        <form action="{{url_for('auth.registerr')}}", method="post">
+            Username:<input type="text" name="username" placeholder="enter the username" required><br>
+            Email:<input type="email" name="email" placeholder="enter the email" required><br>
+            Password:<input type="password" name="password" required><br>
+            Role:<input type="text" name="role" placeholder="enter the role"><br>
+            <input type="submit" value="Register">
+        </form>
+    </body>
+</html>
